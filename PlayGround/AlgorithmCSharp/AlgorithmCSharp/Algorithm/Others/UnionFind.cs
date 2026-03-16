@@ -37,7 +37,7 @@ namespace AlgorithmCSharp.Algorithm.Others
 
             if (!EqualityComparer<T>.Default.Equals(parent[p], p))
             {
-                parent[p] = Find(parent[p]); // 路径压缩
+                parent[p] = Find(parent[p]);  // 路径压缩
             }
             return parent[p];
         }
@@ -49,13 +49,9 @@ namespace AlgorithmCSharp.Algorithm.Others
             T rootQ = Find(q);
             if (!EqualityComparer<T>.Default.Equals(rootP, rootQ))
             {
-                if (rank[rootP] > rank[rootQ])
+                if (rank[rootP] != rank[rootQ])
                 {
-                    parent[rootQ] = rootP;
-                }
-                else if (rank[rootP] < rank[rootQ])
-                {
-                    parent[rootP] = rootQ;
+                    if (rank[rootP] > rank[rootQ]) parent[rootQ] = rootP; else parent[rootP] = rootQ;
                 }
                 else
                 {

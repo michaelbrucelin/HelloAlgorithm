@@ -13,7 +13,7 @@ namespace AlgorithmCSharp.Algorithm.Others
     {
         public FenwickTree(int size, Func<T, T, T> mergeFunc)
         {
-            tree = new T[size + 1]; // 树状数组的索引从1开始，因此需要额外的空间
+            tree = new T[size + 1];  // 树状数组的索引从1开始，因此需要额外的空间
             merge = mergeFunc;
         }
 
@@ -26,7 +26,7 @@ namespace AlgorithmCSharp.Algorithm.Others
             while (index < tree.Length)
             {
                 tree[index] = merge(tree[index], value);
-                index += index & -index; // 更新下一个节点的索引
+                index += index & -index;  // 更新下一个节点的索引
             }
         }
 
@@ -37,7 +37,7 @@ namespace AlgorithmCSharp.Algorithm.Others
             while (index > 0)
             {
                 sum = merge(sum, tree[index]);
-                index -= index & -index; // 更新上一个节点的索引
+                index -= index & -index;  // 更新上一个节点的索引
             }
             return sum;
         }
