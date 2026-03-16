@@ -35,7 +35,7 @@ namespace AlgorithmCSharp.Algorithm.Others
         {
             if (string.IsNullOrEmpty(word)) return Root.IsEnd;
 
-            TrieNode node = FindNode(word);
+            TrieNode? node = FindNode(word);
 
             return node != null && node.IsEnd;
         }
@@ -47,7 +47,7 @@ namespace AlgorithmCSharp.Algorithm.Others
             return FindNode(prefix) != null;
         }
 
-        private TrieNode FindNode(string word)
+        private TrieNode? FindNode(string word)
         {
             TrieNode ptr = Root;
             foreach (char c in word)
