@@ -8,15 +8,13 @@ namespace AlgorithmCSharp.Algorithm.Others
 {
     public class TrieNode
     {
-        public TrieNode(char value)
+        public TrieNode()
         {
-            Value = value;
             Children = new Dictionary<char, TrieNode>();
-            IsEndOfWord = false;
+            IsEnd = false;
         }
 
-        public char Value { get; }
         public Dictionary<char, TrieNode> Children { get; }
-        public bool IsEndOfWord { get; set; }
+        public bool IsEnd { get; set; }
     }
 }
