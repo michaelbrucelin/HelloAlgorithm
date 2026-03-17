@@ -12,7 +12,10 @@ namespace AlgorithmCSharp.Algorithm.Others
     /// <typeparam name="T"></typeparam>
     public class UnionFind<T>
     {
-        // 初始化并查集
+        /// <summary>
+        /// 初始化并查集
+        /// </summary>
+        /// <param name="elements"></param>
         public UnionFind(IEnumerable<T> elements)
         {
             parent = new Dictionary<T, T>();
@@ -27,22 +30,44 @@ namespace AlgorithmCSharp.Algorithm.Others
         private Dictionary<T, T> parent;
         private Dictionary<T, int> rank;
 
-        // 查找操作，带路径压缩
+        /// <summary>
+        /// 查找操作，带路径压缩
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public T Find(T p)
         {
-            if (!parent.ContainsKey(p))
-            {
-                throw new ArgumentException("Element not found in UnionFind");
-            }
+            if (!EqualityComparer<T>.Default.Equals(parent[p], p)) parent[p] = Find(parent[p]);  // 路径压缩
 
-            if (!EqualityComparer<T>.Default.Equals(parent[p], p))
-            {
-                parent[p] = Find(parent[p]);  // 路径压缩
-            }
             return parent[p];
         }
 
-        // 合并操作，按秩合并
+        /// <summary>
+        /// 查找操作，带路径压缩
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public T Find_Iteration(T p)
+        {
+            T f = p;
+            while (!EqualityComparer<T>.Default.Equals(parent[f], f)) f = parent[f];
+
+            T i = p, j;
+            while (!EqualityComparer<T>.Default.Equals(parent[i], i))
+            {
+                j = parent[i];
+                parent[i] = f;
+                i = j;
+            }
+
+            return parent[p];
+        }
+
+        /// <summary>
+        /// 合并操作，按秩合并
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="q"></param>
         public void Union(T p, T q)
         {
             T rootP = Find(p);
@@ -61,7 +86,12 @@ namespace AlgorithmCSharp.Algorithm.Others
             }
         }
 
-        // 检查两个元素是否属于同一集合
+        /// <summary>
+        /// 检查两个元素是否属于同一集合
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="q"></param>
+        /// <returns></returns>
         public bool Connected(T p, T q)
         {
             return EqualityComparer<T>.Default.Equals(Find(p), Find(q));

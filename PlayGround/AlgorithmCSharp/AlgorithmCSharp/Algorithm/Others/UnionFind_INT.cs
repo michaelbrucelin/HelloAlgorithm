@@ -11,7 +11,10 @@ namespace AlgorithmCSharp.Algorithm.Others
     /// </summary>
     public class UnionFind_INT
     {
-        // 初始化并查集
+        /// <summary>
+        /// 初始化并查集
+        /// </summary>
+        /// <param name="size"></param>
         public UnionFind_INT(int size)
         {
             parent = new int[size];
@@ -26,17 +29,44 @@ namespace AlgorithmCSharp.Algorithm.Others
         private int[] parent;
         private int[] rank;
 
-        // 查找操作，带路径压缩
+        /// <summary>
+        /// 查找操作，带路径压缩
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public int Find(int p)
         {
-            if (parent[p] != p)
-            {
-                parent[p] = Find(parent[p]);  // 路径压缩
-            }
+            if (parent[p] != p) parent[p] = Find(parent[p]);  // 路径压缩
+
             return parent[p];
         }
 
-        // 合并操作，按秩合并
+        /// <summary>
+        /// 查找操作，带路径压缩
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public int Find_Iteration(int p)
+        {
+            int f = p;
+            while (parent[f] != f) f = parent[f];
+
+            int i = p, j;
+            while (parent[i] != f)
+            {
+                j = parent[i];
+                parent[i] = f;
+                i = j;
+            }
+
+            return parent[p];
+        }
+
+        /// <summary>
+        /// 合并操作，按秩合并
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="q"></param>
         public void Union(int p, int q)
         {
             int rootP = Find(p);
@@ -55,7 +85,12 @@ namespace AlgorithmCSharp.Algorithm.Others
             }
         }
 
-        // 检查两个元素是否属于同一集合
+        /// <summary>
+        /// 检查两个元素是否属于同一集合
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="q"></param>
+        /// <returns></returns>
         public bool Connected(int p, int q)
         {
             return Find(p) == Find(q);
