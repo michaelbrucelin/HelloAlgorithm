@@ -53,7 +53,7 @@ namespace AlgorithmCSharp.Algorithm.Others
             while (!EqualityComparer<T>.Default.Equals(parent[f], f)) f = parent[f];
 
             T i = p, j;
-            while (!EqualityComparer<T>.Default.Equals(parent[i], i))
+            while (!EqualityComparer<T>.Default.Equals(parent[i], f))
             {
                 j = parent[i];
                 parent[i] = f;
